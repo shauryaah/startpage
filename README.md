@@ -2,16 +2,6 @@
 
 A customizable and minimalist startpage for your browser.
 
-## Features
-
-- Clean and modern design with a blurred background
-- Dynamic greeting based on time of day
-- Current date and time display
-- Weather information for Yamunanagar
-- Quick access to favorite websites
-- Custom search functionality with prefixes
-- Responsive layout
-
 ## Search Prefixes
 
 The startpage supports various search prefixes for quick access to different search engines and websites:
