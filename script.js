@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const dateElement = document.getElementById('date');
     const timeElement = document.getElementById('time');
     const weatherElement = document.getElementById('weather');
-    const searchForm = document.getElementById('searchForm');
     const searchInput = document.getElementById('search');
 
     const OPENWEATHERMAP_API_KEY = 'd6e50ba138856be8b5668a250426b28d';
@@ -61,30 +60,35 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    function handleSearch(e) {
-        e.preventDefault();
-        const input = searchInput.value.trim();
+    function handleSearch(input) {
+        const trimmedInput = input.trim();
         let url = '';
 
-        if (input.startsWith('g/')) {
-            url = `https://www.google.com/search?q=${encodeURIComponent(input.slice(2))}`;
-        } else if (input.startsWith('brave/')) {
-            url = `https://search.brave.com/search?q=${encodeURIComponent(input.slice(6))}`;
-        } else if (input.startsWith('bing/')) {
-            url = `https://www.bing.com/search?q=${encodeURIComponent(input.slice(5))}`;
-        } else if (input.startsWith('wiki/')) {
-            const query = input.slice(5);
+        if (trimmedInput.startsWith('g/')) {
+            url = `https://www.google.com/search?q=${encodeURIComponent(trimmedInput.slice(2))}`;
+        } else if (trimmedInput.startsWith('brave/')) {
+            url = `https://search.brave.com/search?q=${encodeURIComponent(trimmedInput.slice(6))}`;
+        } else if (trimmedInput.startsWith('bing/')) {
+            url = `https://www.bing.com/search?q=${encodeURIComponent(trimmedInput.slice(5))}`;
+        } else if (trimmedInput.startsWith('wiki/')) {
+            const query = trimmedInput.slice(5);
             url = `https://en.wikipedia.org/wiki/${encodeURIComponent(query.replace(/ /g, '_'))}`;
-        } else if (input.startsWith('r/')) {
-            url = `https://www.reddit.com/r/${encodeURIComponent(input.slice(2))}`;
-        } else if (input.startsWith('gh/')) {
-            url = `https://github.com/${encodeURIComponent(input.slice(3))}`;
+        } else if (trimmedInput.startsWith('r/')) {
+            url = `https://www.reddit.com/r/${encodeURIComponent(trimmedInput.slice(2))}`;
+        } else if (trimmedInput.startsWith('gh/')) {
+            url = `https://github.com/${encodeURIComponent(trimmedInput.slice(3))}`;
         } else {
             // Default to Google search if no prefix is used
-            url = `https://www.google.com/search?q=${encodeURIComponent(input)}`;
+            url = `https://www.google.com/search?q=${encodeURIComponent(trimmedInput)}`;
         }
 
         window.location.href = url;
+    }
+
+    function handleKeyPress(e) {
+        if (e.key === 'Enter') {
+            handleSearch(searchInput.value);
+        }
     }
 
     function focusSearch(e) {
@@ -99,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchWeatherForYamunanagar();
     setInterval(fetchWeatherForYamunanagar, 600000); // Update weather every 10 minutes
 
-    searchForm.addEventListener('submit', handleSearch);
+    searchInput.addEventListener('keypress', handleKeyPress);
 
     // Add event listener for '/' key press
     document.addEventListener('keydown', focusSearch);
