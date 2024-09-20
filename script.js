@@ -45,34 +45,20 @@ document.addEventListener('DOMContentLoaded', () => {
         greetingElement.textContent = `${greeting}, Shaurya`;
     }
 
-    function fetchWeatherByCoords(lat, lon) {
-        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${OPENWEATHERMAP_API_KEY}`)
+    function fetchWeatherForYamunanagar() {
+        const YAMUNANAGAR_LAT = 30.1290;
+        const YAMUNANAGAR_LON = 77.2674;
+        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${YAMUNANAGAR_LAT}&lon=${YAMUNANAGAR_LON}&units=metric&appid=${OPENWEATHERMAP_API_KEY}`)
             .then(response => response.json())
             .then(data => {
                 const temperature = Math.round(data.main.temp);
                 const description = data.weather[0].description;
-                const cityName = data.name;
-                weatherElement.textContent = `${cityName}: ${temperature}°C, ${description}`;
+                weatherElement.textContent = `Yamunanagar: ${temperature}°C, ${description}`;
             })
             .catch(error => {
                 console.error('Error fetching weather:', error);
                 weatherElement.textContent = 'Weather data unavailable';
             });
-    }
-
-    function getLocationAndWeather() {
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                const lat = position.coords.latitude;
-                const lon = position.coords.longitude;
-                fetchWeatherByCoords(lat, lon);
-            }, function(error) {
-                console.error("Error getting location:", error);
-                weatherElement.textContent = 'Location access denied';
-            });
-        } else {
-            weatherElement.textContent = 'Geolocation not supported';
-        }
     }
 
     function handleSearch(e) {
@@ -110,11 +96,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateDateTime();
     setInterval(updateDateTime, 1000);
-    getLocationAndWeather();
-    setInterval(getLocationAndWeather, 600000); // Update weather every 10 minutes
+    fetchWeatherForYamunanagar();
+    setInterval(fetchWeatherForYamunanagar, 600000); // Update weather every 10 minutes
 
     searchForm.addEventListener('submit', handleSearch);
 
     // Add event listener for '/' key press
     document.addEventListener('keydown', focusSearch);
+
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+    const sidebar = document.getElementById('sidebar');
+
+    function toggleSidebar() {
+        sidebar.classList.toggle('active');
+    }
+
+    hamburgerMenu.addEventListener('click', toggleSidebar);
 });
