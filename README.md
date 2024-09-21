@@ -11,9 +11,21 @@ A customizable and minimalist startpage for your browser.
    git clone https://github.com/shauryaah/startpage.git
    ```
 
-2. Open `index.html` in your browser.
+2. Choose one of the following methods to use the startpage:
 
-3. Set `index.html` as your browser's homepage or new tab page.
+   ### Method 1: Direct File Opening
+   - Open `index.html` in your browser.
+   - Set `index.html` as your browser's homepage or new tab page.
+
+   ### Method 2: Using the Python Server
+   - Ensure you have Python installed on your system.
+   - Navigate to the `startpage` directory in your terminal.
+   - Run the server:
+     ```bash
+     python server.py
+     ```
+   - Open your browser and go to `http://localhost:80`.
+   - To stop the server, press Ctrl+C in the terminal.
 
 ## Customization
 
