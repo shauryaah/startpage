@@ -1,5 +1,7 @@
 # Startpage
 
+[Preview](https://shauryaah.github.io/startpage)
+
 A customizable and minimalist startpage for your browser.
 
 ## Search Prefixes
