@@ -64,7 +64,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const trimmedInput = input.trim();
         let url = '';
 
-        if (trimmedInput.startsWith('g/')) {
+        // Check if the input is a valid URL or domain
+        const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+        if (urlPattern.test(trimmedInput)) {
+            url = trimmedInput.startsWith('http') ? trimmedInput : `https://${trimmedInput}`;
+        } else if (trimmedInput.startsWith('g/')) {
             url = `https://www.google.com/search?q=${encodeURIComponent(trimmedInput.slice(2))}`;
         } else if (trimmedInput.startsWith('brave/')) {
             url = `https://search.brave.com/search?q=${encodeURIComponent(trimmedInput.slice(6))}`;
@@ -77,6 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
             url = `https://www.reddit.com/r/${encodeURIComponent(trimmedInput.slice(2))}`;
         } else if (trimmedInput.startsWith('gh/')) {
             url = `https://github.com/${encodeURIComponent(trimmedInput.slice(3))}`;
+        } else if (trimmedInput.startsWith('yt/')) {
+            url = `https://www.youtube.com/results?search_query=${encodeURIComponent(trimmedInput.slice(3))}`;
+        } else if (trimmedInput.startsWith('ig/')) {
+            url = `https://www.instagram.com/${encodeURIComponent(trimmedInput.slice(3))}`;
         } else {
             // Default to Google search if no prefix is used
             url = `https://www.google.com/search?q=${encodeURIComponent(trimmedInput)}`;
