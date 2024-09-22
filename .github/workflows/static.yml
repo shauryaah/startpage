@@ -29,10 +29,13 @@ jobs:
         with:
           source: ./
           destination: ./_site
-      - name: Set Access-Control-Allow-Origin header
+      - name: Set CORS headers
         run: |
           echo "/*" > ./_site/_headers
-          echo "  Access-Control-Allow-Origin: *" >> ./_site/_headers
+          echo "  Access-Control-Allow-Origin: https://shauryaah.github.io" >> ./_site/_headers
+          echo "  Access-Control-Allow-Origin: http://localhost:80" >> ./_site/_headers
+          echo "  Access-Control-Allow-Methods: GET, OPTIONS" >> ./_site/_headers
+          echo "  Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept" >> ./_site/_headers
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
