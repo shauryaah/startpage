@@ -255,4 +255,50 @@ document.addEventListener('DOMContentLoaded', () => {
         loadRandomSong();
         playMusic();
     }
+
+    // Add this function to populate bookmarks
+    function populateBookmarks() {
+        const bookmarksContainer = document.querySelector('.bookmarks');
+        if (!bookmarksContainer) return;
+
+        const bookmarks = [
+            {
+                category: 'socials',
+                links: [
+                    { url: 'https://www.instagram.com', icon: 'la-instagram', name: 'instagram' },
+                    { url: 'https://web.whatsapp.com', icon: 'la-whatsapp', name: 'whatsapp' },
+                    { url: 'https://www.reddit.com', icon: 'la-reddit', name: 'reddit' },
+                    { url: 'https://twitter.com', icon: 'la-twitter', name: 'twitter' }
+                ]
+            },
+            {
+                category: 'media',
+                links: [
+                    { url: 'https://www.youtube.com', icon: 'la-youtube', name: 'yt.be' },
+                    { url: 'https://music.youtube.com', icon: 'la-music', name: 'yt.be-music' },
+                    { url: 'https://open.spotify.com', icon: 'la-spotify', name: 'spotify' },
+                    { url: 'https://www.twitch.tv', icon: 'la-twitch', name: 'twitch' }
+                ]
+            },
+            // ... Add other categories and links as needed ...
+        ];
+
+        bookmarks.forEach(category => {
+            const categoryDiv = document.createElement('div');
+            categoryDiv.className = 'bookmark-category';
+            const ul = document.createElement('ul');
+            
+            category.links.forEach(link => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="${link.url}" target="_blank"><i class="la ${link.icon}"></i> ${link.name}</a>`;
+                ul.appendChild(li);
+            });
+
+            categoryDiv.appendChild(ul);
+            bookmarksContainer.appendChild(categoryDiv);
+        });
+    }
+
+    // Call the function to populate bookmarks
+    populateBookmarks();
 });
